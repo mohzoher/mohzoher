@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, FlatList, Image} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
 import LittleLemonHeader from './Components/LittleLemonHeader';
 import LittleLemonFooter from './Components/LittleLemonFooter';
 import WelcomeScreen from './Components/WelcomeScreen';
@@ -17,101 +17,51 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Button from './Components/PrimaryButton';
-import WelcomeTest from './Components/WelcomeTest';
-import SubscribeTest from './Components/SubscribeTest';
-import RootNavigator from './Components/navigations';
-import { ScrollView } from 'react-native-gesture-handler';
 
 
-
+<ion-icon name="home-outline"></ion-icon>;
+<ion-icon name="log-in-outline"></ion-icon>;
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-      <NavigationContainer>
-      <RootNavigator/>
-      </NavigationContainer>
+    <>
+    <NavigationContainer>
+      <View style={styles.container}>
+          <LittleLemonHeader />
+          <Tab.Navigator 
+              screenOptions={({ route, }) => ({
+              tabBarIcon: ({size, }) => {
+              let iconName;
+              if (route.name === 'Welcome') {
+              iconName = 'home-outline'
+              } else if (route.name === 'Login') {
+                iconName = 'log-in-outline';
+              }
+              return <Ionicons name={iconName} size={size} />;
+               },
+               })}
+               initialRouteName="Login">
+              <Tab.Screen name="Welcome" component={WelcomeScreen} />
+              <Tab.Screen name="Login" component={LoginScreen} />
+           </Tab.Navigator>
+      </View>
+      <View style={styles.footerContainer}>
+           <LittleLemonFooter />
+      </View>
+    </NavigationContainer>
+   </>
   );
 }
 
-
-const Styles= StyleSheet.create({
-
-  container:{
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: '#333333',
   },
-images:{
-  marginTop: 200,
-  height: 300,
-  width: 200,
-  resizeMode: 'center'
-}
+  footerContainer: { backgroundColor: '#333333' },
 
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/////////////////////////////////////////
-///////////// TAB NAVIGATION ////////////
-////////////////////////////////////////
-
-
-
-// <ion-icon name="home-outline"></ion-icon>;
-// <ion-icon name="log-in-outline"></ion-icon>;
-// const Tab = createBottomTabNavigator();
-
-// export default function App() {
-//   return (
-//     <>
-//     <NavigationContainer>
-//       <View style={styles.container}>
-//           <LittleLemonHeader />
-//           <Tab.Navigator 
-//               screenOptions={({ route, }) => ({
-//               tabBarIcon: ({size, }) => {
-//               let iconName;
-//               if (route.name === 'Welcome') {
-//               iconName = 'home-outline'
-//               } else if (route.name === 'Login') {
-//                 iconName = 'log-in-outline';
-//               }
-//               return <Ionicons name={iconName} size={size} />;
-//                },
-//                })}
-//                initialRouteName="Login">
-//               <Tab.Screen name="Welcome" component={WelcomeScreen} />
-//               <Tab.Screen name="Login" component={LoginScreen} />
-//            </Tab.Navigator>
-//       </View>
-//       <View style={styles.footerContainer}>
-//            <LittleLemonFooter />
-//       </View>
-//     </NavigationContainer>
-//    </>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#333333',
-//   },
-//   footerContainer: { backgroundColor: '#333333' },
-
-// });
+});
 
 
 
